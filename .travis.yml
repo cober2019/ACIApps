@@ -1,3 +1,2 @@
 language: python
-script:
-  - pytest.py
+script: pytest.py
