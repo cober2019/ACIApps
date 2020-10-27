@@ -4,6 +4,6 @@ language:
           python
          
 jdk:
-  - oraclejdk8
+  - oraclejdk9
 
 script: ant build
