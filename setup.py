@@ -13,7 +13,7 @@ setup(
     long_description_content_type="text/markdown",
     url="https://github.com/cober2019/Network-Automation/tree/master/NETCONF-YANG/ClassMaps",
     packages=find_packages(),
-    install_requires=("flask", "ipaddress", "requests"),
+    install_requires=("flask", "ipaddress", "requests", "flask_migrate"),
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
