@@ -1,0 +1,183 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Dashboard {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+{% endblock stylesheets %}
+
+{% block content %}
+<div class="container-fluid mt--6">
+  <div class="row">
+    <div class="col-xl-12">
+      <div class="card h-300">
+        <div class="card-header border-0">
+          <div class="row align-items-center">
+            <div class="col">
+              <h3 class="mb-0">VLANs</h3>
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <div class="search-box">
+             <input class="form-control" id="myInput" type="text" placeholder="Search..">
+          </div>
+          <span class="counter pull-right"></span>
+          <table class="table align-items-center table-flush results" >
+            <thead class="thead-light">
+              <tr>
+                  <th scope="col">VLAN ID</th>
+                  <th scope="col">VLAN Name</th>
+                  <th scope="col">Bridge Priority</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Ports</th>
+                </tr>
+               </thead>
+                <tbody class="list" id="vlanTable">
+                {% for i in vlans %}
+                  <tr>
+                    <th scope="row">
+                      {{ i["id"] }}
+                    </th>
+                    <td>
+                      {{ i["name"] }}
+                    </td>
+                    <td>
+                      {{ i["prio"] }}
+                    </td>
+                    <td>
+                      {{ i["status"] }}
+                    </td>
+                    <td>
+                      {{ i["ports"] }}
+                    </td>
+                  </tr>
+                {% endfor %}
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-6">
+        <div class="card">
+          <div class="card-header border-0">
+            <div class="row align-items-center">
+              <div class="col">
+                <h3 class="mb-0">Trunks</h3>
+              </div>
+            </div>
+          </div>
+          <div class="table-responsive-md">
+            <div class="search-box">
+               <input class="form-control" id="trunkInput" type="text" placeholder="Search..">
+            </div>
+            <span class="counter pull-right"></span>
+            <table class="table align-items-center table-flush results" >
+              <thead class="thead-light">
+                <tr>
+                    <th scope="col">Interface</th>
+                    <th scope="col">Trunked Vlans</th>
+                  </tr>
+                 </thead>
+                  <tbody id="trunkTable">
+                  {% for i in trunks %}
+                    <tr>
+                      <th scope="row">
+                        {{ i["interface"] }}
+                      </th>
+                      <th>
+                        {{ i["vlans"] }}
+                      </th>
+                    </tr>
+                  {% endfor %}
+              </table>
+            </div>
+          </div>
+        </div>
+          <div class="col-xl-6">
+            <div class="card">
+              <div class="card-header border-0">
+                <div class="row align-items-center">
+                  <div class="col">
+                    <h3 class="mb-0">Port-Channels</h3>
+                  </div>
+                </div>
+              </div>
+              <div class="table-responsive-md">
+                <div class="search-box">
+                   <input class="form-control" id="portchannels" type="text" placeholder="Search..">
+                </div>
+                <span class="counter pull-right"></span>
+                <table class="table align-items-center table-flush results" >
+                  <thead class="thead-light">
+                    <tr>
+                      <th scope="col">Interface</th>
+                      <th scope="col">Channel-Group</th>
+                      <th scope="col">Mode</th>
+                    </tr>
+                   </thead>
+                    <tbody id="portchTable">
+                    {% for i in port_chan %}
+                      <tr>
+                        <th scope="row">
+                          {{ i["interface"] }}
+                        </th>
+                        <th>
+                          {{ i["group"] }}
+                        </th>
+                          <th>
+                          {{ i["mode"] }}
+                        </th>
+                      </tr>
+                    {% endfor %}
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<script>
+
+  $(document).ready(function(){
+    $("#myInput").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#vlanTable tr").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+  });
+
+    $(document).ready(function(){
+    $("#trunkInput").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#trunkTable tr").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+  });
+
+     $(document).ready(function(){
+    $("#portchannels").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#portchTable tr").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+  });
+
+</script>
+
+{% endblock content %}
+
+{% block javascripts %}
+
+
+{% endblock javascripts %}
+
+

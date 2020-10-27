@@ -1,0 +1,127 @@
+
+{% if object_list[0][0] != 0 %}
+  <div class="row">
+    <div class="col-xl-6">
+        <div class="col">
+          <div class="card">
+            <div class="card-header bg-transparent border-0">
+              <div class="row align-items-center">
+                <div class="col ">
+                  <h3 class="mb-0">Vlan Pools</h3>
+                </div>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table align-items-center table-light table-flush" >
+                <tbody id="cdpTable">
+                  {% for i in object_list[0] %}
+                    <tr>
+                      <td scope="row" style="text-align:center">{{ i }}</td>
+                    </tr>
+                  {% endfor %}
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card">
+            <div class="card-header bg-transparent border-0">
+              <div class="row align-items-center">
+                <div class="col ">
+                  <h3 class="mb-0">Physical Domains</h3>
+                </div>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table id="table" class="table align-items-center table-light table-flush ">
+                <tbody id="accessTable">
+                {% for i in object_list[1] %}
+                  <tr>
+                    <td scope="row" style="text-align:center">{{ i }}</td>
+                  </tr>
+                {% endfor %}
+              </table>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="col-xl-6">
+      <div class="col">
+          <div class="card">
+            <div class="card-header bg-transparent border-0">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h3 class="mb-0">AAEPs</h3>
+                </div>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table align-items-center table-light table-flush">
+                <tbody id="trunkTable">
+                  {% for i in object_list[2] %}
+                    <tr>
+                       <td scope="row" style="text-align:center">{{ i }}</td>
+                    </tr>
+                  {% endfor %}
+              </table>
+            </div>
+          </div>
+        </div>
+      <div class="col">
+          <div class="card">
+            <div class="card-header bg-transparent border-0">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h3 class="mb-0">Location</h3>
+                </div>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table align-items-center table-light table-flush" >
+                <tbody id="portchTable">
+                  {% for i in object_list[3] %}
+                    <tr>
+                      <td scope="row" style="text-align:center">{{ i}}</td>
+                  {% endfor %}
+              </table>
+            </div>
+          </div>
+        </div>
+      <div class="col">
+        <div class="card">
+          <div class="card-header bg-transparent border-0">
+            <div class="row align-items-center">
+              <div class="col">
+                <h3 class="mb-0">Paths</h3>
+              </div>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table align-items-center table-light table-flush">
+              <tbody id="rootTable">
+              {% for i in object_list[4] %}
+                <tr>
+                  <td scope="row" style="text-align:center">{{ i }}</td>
+                </tr>
+              {% endfor %}
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% elif object_list[0][0] == 0 %}
+  <div class="col-xl-12" align="center">
+   <div class="col">
+     <br/>
+     <h4 ></h4>
+   </div>
+ </div>
+{% else%}
+ <div class="col-xl-12" align="center">
+   <div class="col">
+     <br/>
+     <h4 >Encapsulation Doesn't Exist</h4>
+   </div>
+ </div>
+{% endif %}

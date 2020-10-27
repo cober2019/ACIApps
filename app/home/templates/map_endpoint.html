@@ -1,0 +1,124 @@
+
+
+{% if object_list[0] != 0 %}
+    <div class="row">
+      <div class="col-xl-6">
+          <div class="col">
+            <div class="card">
+              <div class="card-header bg-transparent border-0">
+                <div class="row align-items-center">
+                  <div class="col ">
+                    <h3 class="mb-0" style="text-align:center">Endpoint Lookup</h3>
+                  </div>
+                </div>
+              </div>
+              <div class="table-responsive">
+                <table class="table align-items-center table-light table-flush" >
+                  <thead class="thead-dark">
+                  </thead>
+                  <tbody>
+                    <tr><td></td></tr>
+                    <tr>
+                      <th>Endpoint</th>
+                      <td scope="row" style="text-align:right">{{ object_list[0] }}</td>
+                    </tr>
+                    <tr>
+                      <th>Tenant</th>
+                      <td scope="row" style="text-align:right">{{ object_list[1] }}</td>
+                    </tr>
+                    <tr>
+                      <th>App Profile</th>
+                      <td scope="row" style="text-align:right">{{ object_list[2] }}</td>
+                    </tr>
+                    <tr>
+                      <th>EPG</th>
+                      <td scope="row" style="text-align:right">{{ object_list[3] }}</td>
+                    </tr>
+                    <tr>
+                      <th>Learned</th>
+                      <td scope="row" style="text-align:right">{{ object_list[4] }}</td>
+                    </tr>
+                    <tr>
+                      <th>Encap</th>
+                      <td scope="row" style="text-align:right">{{ object_list[5] }}</td>
+                    </tr>
+                    <tr>
+                      <th>Paths</th>
+                      <td scope="row" style="text-align:right">{{ object_list[6] }}</td>
+                    </tr>
+                    <tr>
+                      <th>Leafs</th>
+                      <td scope="row" style="text-align:right">{{ object_list[7] }}</td>
+                    </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+      </div>
+      <div class="col-xl-6">
+        <div class="col">
+            <div class="card">
+              <div class="card-header bg-transparent border-0">
+                <div class="row align-items-center">
+                  <div class="col">
+                    <h3 class="mb-0" style="text-align:center">Reverse Lookup</h3>
+                  </div>
+                </div>
+              </div>
+              <div class="table-responsive">
+                <table class="table align-items-center table-light table-flush">
+                  <tbody>
+                     <tr><td></td></tr>
+                     <tr>
+                       <th>Endpoint</th>
+                      <td scope="row" style="text-align:right">{{ reverse[0] }}</td>
+                     </tr>
+                     <tr>
+                       <th>Tenant</th>
+                      <td scope="row" style="text-align:right">{{ reverse[1] }}</td>
+                     </tr>
+                     <tr>
+                       <th>App Profile</th>
+                      <td scope="row" style="text-align:right">{{ reverse[2] }}</td>
+                     </tr>
+                     <tr>
+                       <th>EPG</th>
+                      <td scope="row" style="text-align:right">{{ reverse[3] }}</td>
+                     </tr>
+                     <tr>
+                       <th>Learned</th>
+                      <td scope="row" style="text-align:right">{{ reverse[4] }}</td>
+                     </tr>
+                     <tr>
+                       <th>Encap</th>
+                      <td scope="row" style="text-align:right">{{ reverse[5] }}</td>
+                     </tr>
+                     <tr>
+                       <th>Paths</th>
+                      <td scope="row" style="text-align:right">{{ reverse[6] }}</td>
+                     </tr>
+                    <tr>
+                      <th>Leafs</th>
+                      <td scope="row" style="text-align:right">{{ reverse[7] }}</td>
+                     </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+{% elif not object_list[0] %}
+    <div class="col-xl-12" align="center">
+       <div class="col">
+         <br/>
+         <h4 ></h4>
+       </div>
+     </div>
+{% else%}
+     <div class="col-xl-12" align="center">
+       <div class="col">
+         <br/>
+         <h4 >Endpoint Doesn't Exist</h4>
+       </div>
+     </div>
+{% endif %}
