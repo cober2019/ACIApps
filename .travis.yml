@@ -1,9 +1,5 @@
 
 language: 
-          java
-          python
-         
-jdk:
-  - openjdk10 
 
-script: ant build
+          python
+
