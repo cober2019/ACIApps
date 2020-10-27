@@ -1,4 +1,4 @@
 flask
 ipaddress
-request
+requests
 flask_migrate
