@@ -1,0 +1,4 @@
+flask
+ipaddress
+request
+flask migrate
