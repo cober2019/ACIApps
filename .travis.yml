@@ -2,3 +2,8 @@
 language: 
           java
           python
+         
+jdk:
+  - oraclejdk8
+
+script: ant build
