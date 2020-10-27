@@ -9,7 +9,7 @@ ACI Apps
 Description:
 _______
 
- ACI apps is an easy to use set of tool for Cisco ACI. The app includes:
+ ACI apps is an easy to use set of tools for Cisco ACI. The app includes:
  
     **- Encap Finder** 
     
