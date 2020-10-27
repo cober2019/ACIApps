@@ -1,3 +1,5 @@
+
+script: pytest
 language: python            # this works for Linux but is an error on macOS or Windows
 jobs:
   include:
