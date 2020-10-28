@@ -10,7 +10,7 @@ ACI Apps
 Description:
 _______
 
- ACI apps is an easy to use set of tools for Cisco ACI. The app includes:
+ACI apps is an easy to use set of tools for Cisco ACI. The app includes:
  
     **- Encap Finder** 
     
@@ -24,10 +24,6 @@ _______
     **- Subnet Finder**
     
         Find where a subnet/unicast gateway is located in your fabric and displays the information.
-        
-.. image:: ACIApps/img/GUI-Subnet.png
-   :width: 400
-
         
     **- Infrastructure Info**
     
