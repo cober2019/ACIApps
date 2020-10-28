@@ -129,8 +129,11 @@ def request_l3_attachments(session, apic) -> Any:
 
 
 def vlan_pools(session, apic) -> None:
-    """Parses vlan pool names and assigned vlans"""
 
+    """Parses vlan pool names and assigned vlans"""
+    global vlan_dict
+
+    vlan_dict = collections.defaultdict(list)
     root = request_pools(session, apic)
 
     for fvnsEncapBlk in root.iter("fvnsEncapBlk"):
@@ -148,6 +151,10 @@ def vlan_pools(session, apic) -> None:
 def domains(session, apic) -> None:
     """Parses DNs for ACI policy data store to aaep dictionary"""
 
+    global policies_dict, aaep_dict
+
+    policies_dict = collections.defaultdict(list)
+    aaep_dict = collections.defaultdict(list)
     root = request_domains(session, apic)
 
     # Map AAEP to domains, l3, phy, vmm
