@@ -25,9 +25,9 @@ _______
     
         Find where a subnet/unicast gateway is located in your fabric and displays the information.
         
-.. image:: img/GUI-Subnet.png
-          :width: 400
-          :alt: Alternative text
+.. image:: ACIApps/img/GUI-Subnet.png
+   :width: 400
+
         
     **- Infrastructure Info**
     
