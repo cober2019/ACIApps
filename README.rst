@@ -14,7 +14,7 @@ _______
  
     **- Encap Finder** 
     
-        Finds L2 encapsulation and all fabric policies assigned to them. It will also show you where the encap is locationed in your fabric
+        Finds L2 encapsulation and all fabric policies assigned to them. It will also show you where the encap is locationed in your fabric.
     
     **- Endpoint Finder**
     
@@ -22,7 +22,7 @@ _______
         
     **- Subnet Finder**
     
-        Find where a subnet/unicast gateway is located in your fabric and displays the information
+        Find where a subnet/unicast gateway is located in your fabric and displays the information.
         
     **- Infrastructure Info**
     
