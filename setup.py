@@ -11,7 +11,7 @@ setup(
     description="Used for Cisco ACI Apps",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/cober2019/Network-Automation/tree/master/NETCONF-YANG/ClassMaps",
+    url="https://github.com/cober2019/ACIApps",
     packages=find_packages(),
     install_requires=("flask", "ipaddress", "requests", "flask_migrate"),
     classifiers=[
