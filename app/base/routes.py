@@ -49,6 +49,8 @@ def login():
 
             if apic_session is not None:
 
+                GetPolicies.vlan_pools(apic_session, apic)
+                GetPolicies.domains(apic_session, apic)
                 session_time(username, password, apic)
                 return redirect(url_for('base_blueprint.find_encap'))
             else:
@@ -80,8 +82,6 @@ def find_encap():
     """Gets ACI policies"""
 
     session_time(username, password, apic)
-    GetPolicies.vlan_pools(apic_session, apic)
-    GetPolicies.domains(apic_session, apic)
 
     return render_template('submit_encap.html')
 
