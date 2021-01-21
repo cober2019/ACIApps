@@ -79,8 +79,9 @@ def about():
 
 @blueprint.route('/submit_encap')
 def find_encap():
-    """Gets ACI policies"""
+    """Find encap home page"""
 
+    #Check current session for experation
     session_time(username, password, apic)
 
     return render_template('submit_encap.html')
@@ -90,58 +91,72 @@ def find_encap():
 def submit_encap():
     """Find requested encap from user"""
 
+    #Check current session for experation
     session_time(username, password, apic)
 
-    encap = request.form.get("encap")
-    get_policies = GetPolicies.map_policy_configurations(apic_session, apic, encap)
+    get_policies = GetPolicies.map_policy_configurations(apic_session, apic, request.form.get("encap"))
 
     return jsonify({'data': render_template('map_policies.html', object_list=get_policies)})
 
 
 @blueprint.route('/submit_endpoint')
 def find_endpoint():
+    """Finds endpoint homepage"""
 
+    #Check current session for experation
     session_time(username, password, apic)
+
     return render_template('submit_endpoint.html')
 
 
 @blueprint.route('/submit_endpoint', methods=['POST'])
 def submit_endpoint():
+    """Find users endpoint query"""
 
+    #Check current session for experation
     session_time(username, password, apic)
-    endpoint = request.form.get("endpoint")
 
     try:
-        ipaddress.IPv4Address(endpoint)
-        get_endpoint = EpTracker.find_ip_endpoints(endpoint, apic_session, apic)
+        ipaddress.IPv4Address(request.form.get("endpoint"))
+        get_endpoint = EpTracker.find_ip_endpoints(request.form.get("endpoint"), apic_session, apic)
         get_reverse = EpTracker.find_mac_endpoints(get_endpoint[0], apic_session, apic)
+
+        return jsonify({'data': render_template('map_endpoint.html', object_list=get_endpoint, reverse=get_reverse, logs=get_reverse[8])})
+
     except ipaddress.AddressValueError:
-        get_endpoint = EpTracker.find_mac_endpoints(endpoint, apic_session, apic)
+        get_endpoint = EpTracker.find_mac_endpoints(request.form.get("endpoint"), apic_session, apic)
         get_reverse = EpTracker.find_ip_endpoints(get_endpoint[0], apic_session, apic)
 
-    return jsonify({'data': render_template('map_endpoint.html', object_list=get_endpoint, reverse=get_reverse)})
+        return jsonify({'data': render_template('map_endpoint.html', object_list=get_endpoint, reverse=get_reverse, logs=get_endpoint[8])})
 
 
 @blueprint.route('/submit_subnet')
 def find_subnet():
+    """Find subnet homepage"""
 
+    #Check current session for experation
     session_time(username, password, apic)
-    return render_template('submit_subnet.html')
+    get_gateways = GetGateway.get_gateways(apic_session, apic)
+
+    return render_template('submit_subnet.html', gateways=get_gateways)
 
 
 @blueprint.route('/submit_subnet', methods=['POST'])
 def submit_subnet():
+    """Submit users subnet query"""
 
+    #Check current session for experation
     session_time(username, password, apic)
-    gateway = request.form.get("gateway")
-    get_gateway = GetGateway.find_gateways(gateway, apic_session, apic)
+    get_gateway = GetGateway.find_gateways(request.form.get("gateway"), apic_session, apic)
 
     return jsonify({'data': render_template('map_subnet.html', object_list=get_gateway)})
 
 
 @blueprint.route('/infra')
 def view_infra():
+    """View fabric infrastructure homepage"""
 
+    #Check current session for experation
     session_time(username, password, apic)
     get_infra_info = AciOps.infr(apic_session, apic)
 
