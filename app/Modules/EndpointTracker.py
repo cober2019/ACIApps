@@ -100,12 +100,12 @@ def find_ip_endpoints(endpoint, session, apic) -> tuple:
     encap = None
     ep_loc = None
     ep_domain = None
-    mac = None
+    endpoint_mac = None
 
     # Request endpoint data and iterate through elements/atrributes in tree
     root = get_endpoint_by_ip(endpoint, session, apic)
     for fvCEp in root[0].iter("fvCEp"):
-        mac = fvCEp.get("mac")
+        endpoint_mac = fvCEp.get("mac")
         encap = fvCEp.get("encap")
         ep_loc = fvCEp.get("dn")
         ep_domain = fvCEp.get("lcC")
@@ -119,7 +119,7 @@ def find_ip_endpoints(endpoint, session, apic) -> tuple:
     except (IndexError, KeyError):
         pass
 
-    endpoint_details = display_endpoint_data(ep_loc, encap, ep_domain, mac, paths, leafs)
+    endpoint_details = display_endpoint_data(ep_loc, encap, ep_domain, endpoint_mac, paths, leafs, endpoint, session, mac=endpoint_mac)
 
     return endpoint_details
 
@@ -167,12 +167,12 @@ def find_mac_endpoints(endpoint, session, apic) -> tuple:
     except (IndexError, KeyError):
         pass
 
-    endpoint_details = display_endpoint_data(ep_loc, encap, ep_domain, ip, paths, leafs)
+    endpoint_details = display_endpoint_data(ep_loc, encap, ep_domain, ip, paths, leafs, endpoint, session)
 
     return endpoint_details
 
 
-def display_endpoint_data(ep_loc, encap, ep_domain, reverse, paths, leafs):
+def display_endpoint_data(ep_loc, encap, ep_domain, reverse, paths, leafs, endpoint, session, mac=None):
     """Presents the user with data about the requested endpoint"""
 
     tenant = None
@@ -180,6 +180,7 @@ def display_endpoint_data(ep_loc, encap, ep_domain, reverse, paths, leafs):
     epg = None
     switches = None
     path = None
+    endpoint_logs = None
 
     try:
 
@@ -193,8 +194,28 @@ def display_endpoint_data(ep_loc, encap, ep_domain, reverse, paths, leafs):
         else:
             paths = "No Path Attachments"
     except AttributeError:
-        ep = [0]
-        return ep
+        pass
 
-    return reverse, tenant, ap, epg, ep_domain, encap, path, switches
+    endpoint_logs = get_state_transistions(tenant, ap, epg, endpoint, session, endpoint_mac=endpoint)
 
+    return reverse, tenant, ap, epg, ep_domain, encap, path, switches, endpoint_logs
+
+def get_state_transistions(tenant, ap, epg, endpoint, session, endpoint_mac=None):
+    """Gets endpoint fabric current/past status"""
+
+    if endpoint_mac is not None:
+        uri = f"https://192.168.156.11/mqapi2/troubleshoot.eptracker.json?ep=uni/tn-{tenant}/ap-{ap}/epg-{epg}/cep-{endpoint}"
+    else:
+        uri = f"https://192.168.156.11/mqapi2/troubleshoot.eptracker.json?ep=uni/tn-{tenant}/ap-{ap}/epg-{epg}/cep-{endpoint_mac}"
+
+    # Makes web request
+    xml_reponse = session.get(uri, verify=False)
+    json_response = session.get(uri, verify=False)
+
+    # Converts json response to dictionary
+    try:
+        json_to_dict = json.loads(json_response.text)
+    except json.JSONDecodeError:
+        pass
+
+    return json_to_dict

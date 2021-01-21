@@ -35,6 +35,17 @@ def get_subnets(session, apic):
     return root
 
 
+def get_gateways(session, apic):
+
+    gateways = []
+
+    get_gateway = get_subnets(session, apic)
+    for fvSubnet in get_gateway.iter("fvSubnet"):
+        ip = fvSubnet.get("ip")
+        gateways.append(ip)
+
+    return gateways
+
 def find_gateways(unicast_gateway, session, apic) -> tuple:
     """Search for ACI Gateways and get configurations"""
 
@@ -43,21 +54,27 @@ def find_gateways(unicast_gateway, session, apic) -> tuple:
     aps = []
     epgs = []
     l3Outs = []
+    gateways = []
 
-    location, bridge_domain, uni_route, scope, unkwn_uni, tenant, bd_vrf = None, "DoesntExist", None, None, None, None, None
+    location, bridge_domain, uni_route, scope, unkwn_uni, tenant, bd_vrf, iplearn = None, "DoesntExist", None, None, None, None, None, None
 
     try:
         # Locate subnet in ACI, get scope, map location
         for fvSubnet in get_gateway.iter("fvSubnet"):
             ip = fvSubnet.get("ip")
+            gateways.append(ip)
             if unicast_gateway in ip:
                 location = fvSubnet.get("dn")
                 scope = fvSubnet.get("scope")
                 break
 
-        # Find BD, check to see if unicast routing is enable and unkown unicast setting is
+        # Find BD, check to see if unicast routing is enable and unknown unicast setting is
         for fvBD in get_gateway.iter("fvBD"):
             bds = fvBD.get("name")
+            iplearn = fvBD.get("ipLearning")
+            mtu = fvBD.get("mtu")
+            learn_limit = fvBD.get("limitIpLearnToSubnets")
+            mac = fvBD.get("mac")
             if location.rfind(bds) != -1:
                 bridge_domain = bds
                 uni_route = fvBD.get("unicastRoute")
@@ -83,10 +100,16 @@ def find_gateways(unicast_gateway, session, apic) -> tuple:
             dn = fvRsBDToOut.get("dn")
             if dn.rfind(bridge_domain) != -1:
                 l3Outs.append(dn.split("/")[3].strip("rsBDToOut-"))
+
+        # Find L3outs, save to list
+        for ipLearning in get_gateway.iter("ipLearning"):
+            iplearn = ipLearning.get("ipLearning")
+
+
     except AttributeError:
         pass
 
-    # Set variables from conidtions
+    # Set variables from conditions
     if aps:
         join_aps = ', '.join(aps)
     else:
@@ -109,5 +132,5 @@ def find_gateways(unicast_gateway, session, apic) -> tuple:
         bridge_domain = 0
 
     # Return to user input
-    return bridge_domain, uni_route, scope, unkwn_uni, tenant, join_aps, join_epgs, join_l3outs, bd_vrf
+    return bridge_domain, uni_route, scope, unkwn_uni, tenant, join_aps, join_epgs, join_l3outs, bd_vrf, iplearn, mtu, learn_limit, mac, gateways
 
