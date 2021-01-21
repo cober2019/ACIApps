@@ -25,7 +25,7 @@ ACI apps is an easy to use set of tools for Cisco ACI. The app includes:
         
        .. image:: https://github.com/cober2019/ACIApps/blob/main/images/ENDPOINTfINDER.PNG
     
-       .. image:: https://github.com/cober2019/ACIApps/blob/main/images/GUI_EP_Lookup.PNG-
+       .. image:: https://github.com/cober2019/ACIApps/blob/main/images/GUI_EP_Lookup.PNG
         
     **- Subnet Finder**
     
