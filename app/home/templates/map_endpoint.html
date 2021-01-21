@@ -1,6 +1,6 @@
 
 
-{% if object_list[0] != 0 %}
+{% if object_list[0] != None %}
     <div class="row">
       <div class="col-xl-6">
           <div class="col">
@@ -107,13 +107,52 @@
           </div>
       </div>
     </div>
-{% elif not object_list[0] %}
-    <div class="col-xl-12" align="center">
-       <div class="col">
-         <br/>
-         <h4 ></h4>
-       </div>
-     </div>
+ <div class="row">
+      <div class="col-xl-12">
+          <div class="col">
+            <div class="card">
+              <div class="card-header bg-transparent border-0">
+                <div class="row align-items-center">
+                  <div class="col ">
+                    <h3 class="mb-0" style="text-align:center">Endpoint Logs</h3>
+                  </div>
+                </div>
+              </div>
+              <div class="table-responsive">
+                <table class="table align-items-center table-light table-flush" >
+                  <thead class="thead-dark">
+                  </thead>
+                    <th style="text-align:center">Date</th>
+                    <th style="text-align:center">Path</th>
+                    <th style="text-align:center">IP</th>
+                    <th style="text-align:center">Action</th>
+                    <th style="text-align:center">AP</th>
+                    <th style="text-align:center">MAC</th>
+                    <th style="text-align:center">Status</th>
+                    <th style="text-align:center">Encap</th>
+                    <th style="text-align:center">Tenant</th>
+                    <th style="text-align:center">EPG</th>
+                  <tbody>
+                  {% for i in logs['imdata'] %}
+                    <tr>
+                     <td>{{ i['troubleshootEpTransition']['attributes']['date'].split('.')[0] }}</td>
+                     <td scope="row" style="text-align:left">{{ i['troubleshootEpTransition']['attributes']['path'] }}</td>
+                     <td>{{ i['troubleshootEpTransition']['attributes']['ip'] }}</td>
+                     <td>{{ i['troubleshootEpTransition']['attributes']['action'] }}</td>
+                     <td>{{ i['troubleshootEpTransition']['attributes']['ap'] }}</td>
+                     <td>{{ i['troubleshootEpTransition']['attributes']['mac'] }}</td>
+                     <td>{{ i['troubleshootEpTransition']['attributes']['status'] }}</td>
+                     <td>{{ i['troubleshootEpTransition']['attributes']['encap'] }}</td>
+                     <td>{{ i['troubleshootEpTransition']['attributes']['tenant'] }}</td>
+                     <td>{{ i['troubleshootEpTransition']['attributes']['epg'] }}</td>
+                    </tr>
+                 {% endfor %}
+                </table>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
 {% else%}
      <div class="col-xl-12" align="center">
        <div class="col">

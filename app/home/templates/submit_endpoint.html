@@ -1,49 +1,33 @@
 {% extends 'layouts/base.html' %}
 
-{% block title %} Dashboard {% endblock title %}
+{% block title %} Endpoint Lookup {% endblock title %}
 
 {% block stylesheets %}
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script>
-  $(document).ready(function(){
-    $('#inputEp').bind("input", function(){
-     var ep = $('#inputEp').val();
 
+  $(document).ready(function(){
+    $('#submitEP').submit(function(){
      $.ajax({
       url: '/submit_endpoint',
       type: 'POST',
-      data: {'endpoint': ep},
+      data: $('form').serialize(),
       success: function(response){
        $('#response').html(response.data);
       },
      });
+     return false;
     });
   });
- </script>
+
+</script>
 
 {% endblock stylesheets %}
 
 {% block content %}
 
-<nav class="navbar navbar-expand-xl navbar-light bg-default fixed-top">
-  <div class="container-fluid">
-    <h1 class="navbar-brand mb-0 h1" ></h1>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-    <div  id="navbarResponsive">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link text-light" href="{{ url_for('base_blueprint.about') }}">About</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-  </nav>
-  <br/>
-  <br/>
-  <br/>
+<div class="container-fluid">
     <div class="row">
       <div class="col-xl-12">
         <div class="card">
@@ -51,11 +35,16 @@
             <div class="row align-items-center">
               <div class="col"></div>
               <div class="col">
-                <form class="form-signin" role="form" method="post" onsubmit="return false;">
-                  <h2 class="form-signin-heading" style="text-align:center">Enter MAC/IP</h2>
-                  <input id="inputEp" class="form-control" placeholder="MAC/IP">
-                  <br/>
-                </form>
+              <form role="form" method="post" id="submitEP">
+                <h2 style="text-align:center">Enter MAC/IP</h2>
+                <div class="input-group mb-3">
+                  <input type="text" class="form-control" placeholder="Endpoint" name="endpoint" >
+                  <div class="input-group-append">
+                    <button class="btn btn-secondary bg-primary text-white" id="submit">Submit</button>
+                  </div>
+                </div>
+                <br/>
+              </form>
               </div>
               <div class="col"></div>
             </div>
@@ -68,6 +57,7 @@
         </div>
       </div>
     </div>
+</div>
 
 
 

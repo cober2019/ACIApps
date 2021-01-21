@@ -12,7 +12,7 @@
               </div>
             </div>
             <div class="table-responsive">
-              <table class="table align-items-center table-light table-flush" >
+              <table class="table align-items-center table-light table-flush table table-striped">
                 <tbody>
                   <tr>
                       <th>Bridge-Domain</th>
@@ -34,6 +34,10 @@
                       <th>Tenant</th>
                       <td scope="row" style="text-align:right">{{ object_list[4] }}</td>
                   </tr>
+                   <tr>
+                      <th>IPLearn Limit</th>
+                      <td scope="row" style="text-align:right">{{ object_list[11] }}</td>
+                  </tr>
               </table>
             </div>
         </div>
@@ -50,7 +54,7 @@
             </div>
           </div>
           <div class="table-responsive">
-            <table class="table align-items-center table-light table-flush">
+            <table class="table align-items-center table-light table-flush table table-striped">
               <tbody>
                 <tr>
                     <th>Ap(s)</th>
@@ -68,24 +72,34 @@
                     <th>VRF</th>
                     <td scope="row" style="text-align:right">{{ object_list[8] }}</td>
                 </tr>
+                <tr>
+                    <th>IPLearn</th>
+                    <td scope="row" style="text-align:right">{{ object_list[9] }}</td>
+                </tr>
+                 <tr>
+                    <th>MTU</th>
+                    <td scope="row" style="text-align:right">{{ object_list[10] }}</td>
+                </tr>
+                 <tr>
+                    <th>MAC</th>
+                    <td scope="row" style="text-align:right">{{ object_list[12] }}</td>
+                </tr>
             </table>
           </div>
         </div>
       </div>
     </div>
   </div>
-{% elif object_list[0] == 0 %}
- <div class="col-xl-12" align="center">
-   <div class="col">
-     <br/>
-     <h4 ></h4>
-   </div>
- </div>
 {% else%}
- <div class="col-xl-12" align="center">
-   <div class="col">
-     <br/>
-     <h4 >Subnet Doesn't Exist</h4>
-   </div>
- </div>
+<div class="container-fluid">
+    <div class="row">
+     <div class="col-xl-12" align="center">
+       <div class="col">
+         <br/>
+         <h4 >Subnet Doesn't Exist</h4>
+       </div>
+     </div>
+    </div>
+</div>
+
 {% endif %}

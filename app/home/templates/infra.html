@@ -1,6 +1,6 @@
 {% extends 'layouts/base.html' %}
 
-{% block title %} Dashboard {% endblock title %}
+{% block title %} Infrastructure {% endblock title %}
 
 <!-- Specific CSS goes HERE -->
 {% block stylesheets %}
@@ -11,83 +11,69 @@
 {% endblock stylesheets %}
 
 {% block content %}
-<nav class="navbar navbar-expand-xl navbar-light bg-default fixed-top">
-  <div class="container-fluid">
-    <h1 class="navbar-brand mb-0 h1" ></h1>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-    <div  id="navbarResponsive">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link text-light" href="{{ url_for('base_blueprint.about') }}">About</a>
-        </li>
-      </ul>
+
+{% for k, v in fabric_infra.items() %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xl-12">
+      <div class="card">
+        <div class="card-header border-0">
+          <div class="row align-items-center">
+            <div class="col ">
+              <h3><span class="mb-0">Fabric Infrastructure: {{ k }}</span>
+                  {% if v[-1:][0]['health'] > 85 %}
+                    <span class="mb-0 float-sm-right text-success">Current Health: {{ v[-1:][0]['health'] }}</span></h3>
+                    {% if v[-1:][0]['change'] >= 0 %}
+                        <span class="mb-0 float-sm-right text-success">Health Change: {{ v[-1:][0]['change'] }}</span></h3>
+                    {% else%}
+                        <span class="mb-0 float-sm-right text-danger">Health Change: {{ v[-1:][0]['change'] }}</span></h3>
+                    {% endif %}
+                  {% else%}
+                    <span class="mb-0 float-sm-right text-warning">Current Health: {{ v[-1:][0]['health'] }}</span></h3>
+                    {% if v[-1:][0]['change'] >= 0 %}
+                        <span class="mb-0 float-sm-right text-success">Health Change: {{ v[-1:][0]['change'] }}</span></h3>
+                    {% else%}
+                        <span class="mb-0 float-sm-right text-danger">Health Change: {{ v[-1:][0]['change'] }}</span></h3>
+                    {% endif %}
+                  {% endif %}
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <div class="search-box">
+             <input class="form-control" id="search" type="text" placeholder="Search..">
+          </div>
+          <span class="counter pull-right"></span>
+          <table class="table align-items-center table-flush results" >
+            <thead class="thead-light">
+              <tr>
+                  <th scope="col">Node</th>
+                  <th scope="col">Model</th>
+                  <th scope="col">Serial</th>
+                </tr>
+               </thead>
+                <tbody id="infra">
+                {% for v in v %}
+                  <tr>
+                    <th scope="row">
+                      {{ v["node"] }}
+                    </th>
+                    <th>
+                      {{ v["model"] }}
+                    </th>
+                    <th>
+                      {{ v["serial"] }}
+                    </th>
+                  </tr>
+                {% endfor %}
+            </table>
+          </div>
+        </div>
     </div>
   </div>
-  </nav>
-  <br/>
-  <br/>
-  <br/>
-    {% for k, v in fabric_infra.items() %}
-      <div class="row">
-        <div class="col-xl-12">
-          <div class="card">
-            <div class="card-header border-0">
-              <div class="row align-items-center">
-                <div class="col ">
-                  <h3><span class="mb-0">Fabric Infrastructure: {{ k }}</span>
-                      {% if v[-1:][0]['health'] > 85 %}
-                        <span class="mb-0 float-sm-right text-success">Current Health: {{ v[-1:][0]['health'] }}</span></h3>
-                        {% if v[-1:][0]['change'] >= 0 %}
-                            <span class="mb-0 float-sm-right text-success">Health Change: {{ v[-1:][0]['change'] }}</span></h3>
-                        {% else%}
-                            <span class="mb-0 float-sm-right text-danger">Health Change: {{ v[-1:][0]['change'] }}</span></h3>
-                        {% endif %}
-                      {% else%}
-                        <span class="mb-0 float-sm-right text-warning">Current Health: {{ v[-1:][0]['health'] }}</span></h3>
-                        {% if v[-1:][0]['change'] >= 0 %}
-                            <span class="mb-0 float-sm-right text-success">Health Change: {{ v[-1:][0]['change'] }}</span></h3>
-                        {% else%}
-                            <span class="mb-0 float-sm-right text-danger">Health Change: {{ v[-1:][0]['change'] }}</span></h3>
-                        {% endif %}
-                      {% endif %}
-                </div>
-              </div>
-            </div>
-            <div class="table-responsive">
-              <div class="search-box">
-                 <input class="form-control" id="search" type="text" placeholder="Search..">
-              </div>
-              <span class="counter pull-right"></span>
-              <table class="table align-items-center table-flush results" >
-                <thead class="thead-light">
-                  <tr>
-                      <th scope="col">Node</th>
-                      <th scope="col">Model</th>
-                      <th scope="col">Serial</th>
-                    </tr>
-                   </thead>
-                    <tbody id="infra">
-                    {% for v in v %}
-                      <tr>
-                        <th scope="row">
-                          {{ v["node"] }}
-                        </th>
-                        <th>
-                          {{ v["model"] }}
-                        </th>
-                        <th>
-                          {{ v["serial"] }}
-                        </th>
-                      </tr>
-                    {% endfor %}
-                </table>
-              </div>
-            </div>
-        </div>
-      </div>
-    {% endfor %}
+</div>
+
+{% endfor %}
 
 <script>
 
