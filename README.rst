@@ -7,6 +7,10 @@
 ACI Apps
 ======
 
+Usage
+______
+
+Launch the App using run.py in the maine folder. To access the app use http://127.0.0.1:5000/
 
 Description:
 _______
