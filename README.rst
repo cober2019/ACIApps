@@ -11,7 +11,8 @@ Usage
 ______
 
     - Run requirements.txt to install requred python modules: pip3 install -r requirements.txt
-    - Launch the App using run.py in the main folder. To access the app use http://127.0.0.1:5000/
+    - If using guicorn go to root directory and run: gunicorn --bind 0.0.0.0:5000 run:app
+    - If you just want to launch the app, use run.py in the main folder. To access the app use http://127.0.0.1:5000/
     - **Don't have ACI? Visit Cisco Devent Sandbox and take it for a test drive.**
 
 Description:
