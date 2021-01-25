@@ -10,8 +10,8 @@ ACI Apps
 Usage
 ______
 
-Run requirements.txt to install requred python modules: pip3 install -r requirements.txt
-Launch the App using run.py in the main folder. To access the app use http://127.0.0.1:5000/
+    - Run requirements.txt to install requred python modules: pip3 install -r requirements.txt
+    - Launch the App using run.py in the main folder. To access the app use http://127.0.0.1:5000/
 
 Description:
 ____________
