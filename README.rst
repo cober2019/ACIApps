@@ -12,12 +12,12 @@ ______
 
     - Run requirements.txt to install requred python modules: pip3 install -r requirements.txt
     - Launch the App using run.py in the main folder. To access the app use http://127.0.0.1:5000/
+    - **Don't have ACI? Visit Cisco Devent Sandbox and take it for a test drive.**
 
 Description:
 ____________
 
-ACI apps is an easy to use set of tools for Cisco ACI. **Don't have ACI? Visit Cisco Devent Sandbox and take it for a test drive.**
-The following modules are included in this app are:
+ACI apps is an easy to use set of tools for Cisco ACI. The following modules are included in this app are:
  
     **- Encap Finder**
     
